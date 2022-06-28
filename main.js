@@ -1,8 +1,8 @@
 // ! Fetch
-
-const main = (() => {
+console.log(TMDB_KEY);
 // TODO Home
-fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=99d1b6f31a630097c5f5cdda1844456b')
+const keyAPI = '99d1b6f31a630097c5f5cdda1844456b'
+fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${keyAPI}`)
   .then((response) => response.json())
   .then((response) => {
     const movies = response.results;
@@ -120,4 +120,3 @@ function showMovieDetails(detail) {
             </div>
           </div>`;
 }
-})();
