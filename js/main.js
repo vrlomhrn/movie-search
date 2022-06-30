@@ -115,11 +115,11 @@
     return `
           <div class="container-fluid">
             <div class="row">
-            <h5 class="modal-title m-auto" id="movieDetailModalLabel">${detail.title}</h5>
-                <div class="col-md-3">
+            <h5 class="modal-title m-auto" id="movieDetailModalLabel ">${detail.title}</h5>
+                <div class="col-md-4 padding-style">
                     <img src="https://image.tmdb.org/t/p/w500/${image}" class="img-fluid" />
                 </div>
-                <div class="col-md">
+                <div class="col-md padding-style">
                     <ul class="list-group">
                     <li class="list-group-item"><strong>Title:</strong> ${title}</li>
                     <li class="list-group-item"><strong>Release Date: </strong>${releaseDate}</li>
