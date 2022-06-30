@@ -1,6 +1,6 @@
 // ! Fetch
 // TODO Home
-const main = (() => {
+(() => {
     (() => {
     const keyAPI = '99d1b6f31a630097c5f5cdda1844456b';
     fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${keyAPI}`)
@@ -37,21 +37,10 @@ const main = (() => {
       updateUI(movies);
     } catch (error) {
       (() => {
-        const keyAPI = '99d1b6f31a630097c5f5cdda1844456b';
-        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${keyAPI}`)
-          .then((response) => response.json())
-          .then((response) => {
-            const movies = response.results;
-            (() => updateUI(movies))();
-            //? if details clicked
-            const modalDetailButton = document.querySelectorAll('.modal-detail-button');
-            modalDetailButton.forEach((btn) => {
-              btn.addEventListener('click', function () {
-                // const tmdbId = this.dataset.tmdb;
-                (() => getMovieDetail(tmdb))();
-              });
-            });
-          });
+          (() => {
+            setTimeout("location.reload(true);");
+          })();
+          window.onload;
       })();
       alert(error);
     } finally {
