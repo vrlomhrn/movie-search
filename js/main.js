@@ -115,7 +115,7 @@
     return `
           <div class="container-fluid">
             <div class="row">
-            <h5 class="modal-title m-auto" id="movieDetailModalLabel ">${detail.title}</h5>
+            <h5 class="modal-title m-auto" id="movieDetailModalLabel ">${title}</h5>
                 <div class="col-md-4 padding-style">
                     <img src="https://image.tmdb.org/t/p/w500/${image}" class="img-fluid" />
                 </div>
