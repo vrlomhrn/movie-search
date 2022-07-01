@@ -1,0 +1,1 @@
+Hello there! this is my first movie search using javascript.
