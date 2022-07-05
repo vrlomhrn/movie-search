@@ -1,1 +1,1 @@
-Hello there! this is my first movie search using javascript.
+git clone https://github.com/VirloMahrian/movie-search-using-TMDB-API.git

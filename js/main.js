@@ -1,9 +1,9 @@
 // ! Fetch
 // TODO Home
 (() => {
+  const API_KEY = config.API_KEY;
   (() => {
-    const keyAPI = '99d1b6f31a630097c5f5cdda1844456b';
-    fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${keyAPI}`)
+    fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
       .then((response) => response.json())
       .then((response) => {
         const movies = response.results;
@@ -16,7 +16,7 @@
         modalDetailButton.forEach((btn) => {
           btn.addEventListener('click', function () {
             const tmdbId = this.dataset.tmdb;
-            fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=99d1b6f31a630097c5f5cdda1844456b&language=en-US`)
+            fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${API_KEY}&language=en-US`)
               .then((response) => response.json())
               .then((detail) => {
                 const movieDetail = showMovieDetails(detail);
@@ -49,7 +49,7 @@
   });
 
   function getMovies(keyword) {
-    return fetch(`https://api.themoviedb.org/3/search/movie?api_key=99d1b6f31a630097c5f5cdda1844456b&query=${keyword}`)
+    return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${keyword}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Something wrong, I can feel it.');
@@ -72,7 +72,7 @@
   }
 
   function getMovieDetail(tmdb) {
-    return fetch(`https://api.themoviedb.org/3/movie/${tmdb}?api_key=99d1b6f31a630097c5f5cdda1844456b&language=en-US`)
+    return fetch(`https://api.themoviedb.org/3/movie/${tmdb}?api_key=${API_KEY}&language=en-US`)
       .then((response) => response.json())
       .then((detail) => detail);
   }
