@@ -1,1 +1,1 @@
-git clone https://github.com/VirloMahrian/movie-search-using-TMDB-API.git
+This is movie search using TMDB API
