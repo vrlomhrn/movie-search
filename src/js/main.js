@@ -93,13 +93,22 @@
   });
 
   function showCards(movie) {
+    const image = movie.poster_path;
+    const title = movie.title;
+    const releaseDate = movie.release_date;
+    const movieID = movie.id
+    // const movieType = movie.media_type;
+    if(image == null){
+      return '';
+    }
+
     return `<div class="col-md-4 my-1">
             <div class="card">
-              <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" class="card-img-top">
+              <img src="https://image.tmdb.org/t/p/w500/${image}" class="card-img-top">
                 <div class="card-body">
-                  <h5 class="card-title">${movie.title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${movie.release_date}</h6>
-                    <a href="#" class="btn btn-primary modal-detail-button" data-bs-toggle="modal" data-bs-target="#movieDetailModal" data-tmdb="${movie.id}">Show Details</a>
+                  <h5 class="card-title">${title}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${releaseDate}</h6>
+                    <a href="#" class="btn btn-primary modal-detail-button" data-bs-toggle="modal" data-bs-target="#movieDetailModal" data-tmdb="${movieID}">Show Details</a>
                 </div>
             </div>
           </div>`;
