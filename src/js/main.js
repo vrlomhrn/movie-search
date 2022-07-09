@@ -26,7 +26,7 @@
       console.log('Succesfull loaded');
     }
   });
-  function getTrending(movies) {
+  function getTrending() {
     return fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
       .then((response) => response.json())
       .then((response) => response.results);
