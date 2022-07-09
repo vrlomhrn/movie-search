@@ -2,30 +2,9 @@
 // TODO Home
 (() => {
   const API_KEY = config.API_KEY;
-  (() => {
-    fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
-      .then((response) => response.json())
-      .then((response) => {
-        const movies = response.results;
-        let cards = '';
-        movies.forEach((movie) => (cards += showCards(movie)));
-        const movieContainer = document.querySelector('.movie-container');
-        movieContainer.innerHTML = cards;
-        //? if details clicked
-        const modalDetailButton = document.querySelectorAll('.modal-detail-button');
-        modalDetailButton.forEach((btn) => {
-          btn.addEventListener('click', function () {
-            const tmdbId = this.dataset.tmdb;
-            fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${API_KEY}&language=en-US`)
-              .then((response) => response.json())
-              .then((detail) => {
-                const movieDetail = showMovieDetails(detail);
-                const modalBody = document.querySelector('.modal-body');
-                modalBody.innerHTML = movieDetail;
-              });
-          });
-        });
-      });
+  (async () => {
+    const trending = await getTrending();
+    updateUI(trending);
   })();
 
   // TODO Search button
@@ -47,7 +26,11 @@
       console.log('Succesfull loaded');
     }
   });
-
+  function getTrending(movies) {
+    return fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
+      .then((response) => response.json())
+      .then((response) => response.results);
+  }
   function getMovies(keyword) {
     return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${keyword}`)
       .then((response) => {
@@ -93,49 +76,36 @@
   });
 
   function showCards(movie) {
-    const image = movie.poster_path;
-    const title = movie.title;
-    const releaseDate = movie.release_date;
-    const movieID = movie.id
-    // const movieType = movie.media_type;
-    if(image == null){
+    if (movie.poster_path == null) {
       return '';
     }
-
     return `<div class="col-md-4 my-1">
             <div class="card">
-              <img src="https://image.tmdb.org/t/p/w500/${image}" class="card-img-top">
+              <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" class="card-img-top">
                 <div class="card-body">
-                  <h5 class="card-title">${title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${releaseDate}</h6>
-                    <a href="#" class="btn btn-primary modal-detail-button" data-bs-toggle="modal" data-bs-target="#movieDetailModal" data-tmdb="${movieID}">Show Details</a>
+                  <h5 class="card-title">${movie.title}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${movie.release_date}</h6>
+                    <a href="#" class="btn btn-primary modal-detail-button" data-bs-toggle="modal" data-bs-target="#movieDetailModal" data-tmdb="${movie.id}">Show Details</a>
                 </div>
             </div>
           </div>`;
   }
 
   function showMovieDetails(detail) {
-    const image = detail.poster_path;
-    const title = detail.title;
-    const releaseDate = detail.release_date;
-    const vote = detail.vote_average;
-    const status = detail.status;
-    const desc = detail.overview;
-    return `
-          <div class="container-fluid">
-            <div class="row">
-            <h5 class="modal-title m-auto" id="movieDetailModalLabel ">${title}</h5>
-                <div class="col-md-4 padding-style">
-                    <img src="https://image.tmdb.org/t/p/w500/${image}" class="img-fluid" />
-                </div>
-                <div class="col-md padding-style">
-                    <ul class="list-group">
-                    <li class="list-group-item"><strong>Title:</strong> ${title}</li>
-                    <li class="list-group-item"><strong>Release Date: </strong>${releaseDate}</li>
-                    <li class="list-group-item"><strong>Ratings:</strong> ${vote}</li>
-                    <li class="list-group-item"><strong>Status:</strong> ${status}</li>
-                    <li class="list-group-item"><strong>Description: </strong><br>${desc}</li>
-                    </ul>
+    return `<div class="container-fluid">
+              <div class="row">
+              <h5 class="modal-title m-auto" id="movieDetailModalLabel ">${detail.title}</h5>
+                  <div class="col-md-4 padding-style">
+                      <img src="https://image.tmdb.org/t/p/w500/${detail.poster_path}" class="img-fluid" />
+                  </div>
+                  <div class="col-md padding-style">
+                      <ul class="list-group">
+                      <li class="list-group-item"><strong>Title:</strong> ${(title = detail.title)}</li>
+                      <li class="list-group-item"><strong>Release Date: </strong>${detail.release_date}</li>
+                      <li class="list-group-item"><strong>Ratings:</strong> ${detail.vote_average}</li>
+                      <li class="list-group-item"><strong>Status:</strong> ${detail.status}</li>
+                      <li class="list-group-item"><strong>Description: </strong><br>${detail.overview}</li>
+                      </ul>
                 </div>
             </div>
           </div>`;
