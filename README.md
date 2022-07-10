@@ -1,1 +1,2 @@
-This is movie search using TMDB API
+# Movie Search with TMDB API
+### Created by @VirloMahrian
