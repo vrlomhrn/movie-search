@@ -1,11 +1,17 @@
-// ! Fetch
 // TODO Home
-(() => {
+const movieSearch = (() => {
   const API_KEY = config.API_KEY;
+  // TODO getTrending
   (async () => {
     const trending = await getTrending();
     updateUI(trending);
   })();
+
+  function getTrending() {
+    return fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
+      .then((response) => response.json())
+      .then((response) => response.results);
+  }
 
   // TODO Search button
   const searchButton = document.querySelector('.search-button');
@@ -26,11 +32,8 @@
       console.log('Succesfull loaded');
     }
   });
-  function getTrending() {
-    return fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
-      .then((response) => response.json())
-      .then((response) => response.results);
-  }
+
+  // TODO getMovies
   function getMovies(keyword) {
     return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${keyword}`)
       .then((response) => {
@@ -47,6 +50,7 @@
       });
   }
 
+  // TODO UpdateUI
   function updateUI(movies) {
     let cards = '';
     movies.forEach((m) => (cards += showCards(m)));
@@ -54,11 +58,14 @@
     movieContainer.innerHTML = cards;
   }
 
+  // TODO getMovieDetail
   function getMovieDetail(tmdb) {
     return fetch(`https://api.themoviedb.org/3/movie/${tmdb}?api_key=${API_KEY}&language=en-US`)
       .then((response) => response.json())
       .then((detail) => detail);
   }
+
+  // TODO updateUIDetail
   function updateUIDetail(detail) {
     const movieDetail = showMovieDetails(detail);
     const modalBody = document.querySelector('.modal-body');
@@ -75,6 +82,7 @@
     }
   });
 
+  // TODO showCards
   function showCards(movie) {
     if (movie.poster_path == null) {
       return '';
@@ -91,6 +99,7 @@
           </div>`;
   }
 
+  // TODO showMovieDetails
   function showMovieDetails(detail) {
     return `<div class="container-fluid">
               <div class="row">
